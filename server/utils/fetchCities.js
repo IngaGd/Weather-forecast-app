@@ -3,9 +3,13 @@ let citiesFetchError = null;
 
 const fetchCities = async () => {
   try {
-    const response = await fetch("https://api.meteo.lt/v1/places", {
-      method: "GET",
-    });
+    const response = await fetch(
+      "https://api.meteo.lt/v1/places",
+      { timeout: 5000 },
+      {
+        method: "GET",
+      }
+    );
     if (!response.ok)
       throw new Error(`API response status: ${response.status}`);
     const data = await response.json();

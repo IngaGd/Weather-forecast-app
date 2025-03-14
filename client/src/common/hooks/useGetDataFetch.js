@@ -6,6 +6,7 @@ export function useGetDataFetch({ letter }) {
   const [cities, setCities] = useState([]);
 
   useEffect(() => {
+    if (!letter) return;
     const getData = async () => {
       try {
         const response = await fetch(`${url}places?letter=${letter}`, {

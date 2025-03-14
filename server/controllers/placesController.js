@@ -5,6 +5,8 @@ exports.getPlaces = async (req, res) => {
   const { letter } = req.query;
   console.log(letter);
 
+  if (!letter) return res.json([]);
+
   const { cities, citiesFetchError } = getCitiesData();
 
   if (citiesFetchError)
