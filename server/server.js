@@ -18,6 +18,7 @@ app.use(cors(corsOptions));
 fetchCities();
 
 app.use("/api", require("./routes/places"));
+app.use("/api", require("./routes/forecast"));
 
 app.listen(port, () => {
   console.log(`Server is started on port: ${port}`);
