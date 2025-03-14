@@ -7,11 +7,15 @@ export function CitiesDropDown() {
   const letter = citySearch[0];
   const { cities } = useGetDataFetch({ letter });
 
+  const filteredCities = cities.filter((city) =>
+    city.cityName.slice(1).startsWith(citySearch.slice(1))
+  );
+
   return (
     <div>
       <Input citySearch={citySearch} setCitySearch={setCitySearch} />
       <div>
-        {cities?.map((city) => (
+        {filteredCities?.map((city) => (
           <div key={city.id}>{city.cityName}</div>
         ))}
       </div>
