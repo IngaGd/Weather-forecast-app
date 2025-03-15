@@ -1,12 +1,14 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useGetDataFetch } from "../../hooks/useGetDataFetch";
 import { Input } from "../Input/Input";
 import { GlobalContext } from "../../context/GlobalContext";
 import { usePostUserAction } from "../../hooks/usePostUserAction";
+import { useLocalStorage } from "../../hooks/useLocalStorage";
 
 export function CitiesDropDown() {
   const [citySearch, setCitySearch] = useState("");
   const { selectedCity, setSelectedCity } = useContext(GlobalContext);
+  const { addCity } = useLocalStorage();
   const letter = citySearch[0];
   const { cities } = useGetDataFetch({ letter });
 
@@ -18,6 +20,7 @@ export function CitiesDropDown() {
     console.log("selected id: ", city);
     if (!city) return;
     setSelectedCity({ id: city.id, code: city.cityCode, name: city.cityName });
+    addCity({ id: city.id, code: city.cityCode, name: city.cityName });
   };
 
   usePostUserAction();
