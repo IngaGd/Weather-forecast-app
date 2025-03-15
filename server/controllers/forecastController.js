@@ -1,8 +1,15 @@
 const { getData, fetchDataGet } = require("../utils/fetchDataGet");
 
 exports.getForecast = async (req, res) => {
-  fetchDataGet("https://api.meteo.lt/v1/places/vilnius/forecasts/long-term");
+  const placeCode = req.query.placeCode;
+  if (!placeCode) return res.json([]);
+
+  fetchDataGet(
+    `https://api.meteo.lt/v1/places/${placeCode}/forecasts/long-term`
+  );
+
   const { weather } = getData();
+
   if (!weather) {
     return res
       .status(500)

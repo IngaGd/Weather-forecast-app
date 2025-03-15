@@ -1,23 +1,31 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { GlobalContext } from "../context/GlobalContext";
 
 const url = import.meta.env.VITE_URL;
 
 export function useGetWeather() {
+  const { selectedCity } = useContext(GlobalContext);
   const [weather, setWeather] = useState([]);
 
   useEffect(() => {
+    if (!selectedCity) {
+      return;
+    }
+
     const getData = async () => {
       try {
-        const response = await fetch(`${url}forecast`, {
-          method: "GET",
-          //   headers: { "Content-Type": "application/json" },
-        });
+        const response = await fetch(
+          `${url}forecast?placeCode=${selectedCity.code}`,
+          {
+            method: "GET",
+          }
+        );
         if (!response.ok) {
           throw new Error("Data failed to fetch");
         }
         const data = await response.json();
-        //setWeather(data);
-        const formattedData = data.forecastTimestamps.map((entry) => ({
+        if (!data.forecastTimestamps) throw new Error("Invalid data");
+        const formattedData = data.forecastTimestamps?.map((entry) => ({
           // id: 1,
           time: entry.forecastTimeUtc,
           temperature: entry.airTemperature,
@@ -32,7 +40,7 @@ export function useGetWeather() {
       }
     };
     getData();
-  }, []);
+  }, [selectedCity]);
 
   return { weather };
 }
