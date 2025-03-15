@@ -14,11 +14,13 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
+app.use(express.json());
 
 fetchCities();
 
 app.use("/api", require("./routes/places"));
 app.use("/api", require("./routes/forecast"));
+app.use("/api", require("./routes/logs"));
 
 app.listen(port, () => {
   console.log(`Server is started on port: ${port}`);

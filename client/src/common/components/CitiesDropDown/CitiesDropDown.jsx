@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 import { useGetDataFetch } from "../../hooks/useGetDataFetch";
 import { Input } from "../Input/Input";
 import { GlobalContext } from "../../context/GlobalContext";
+import { usePostUserAction } from "../../hooks/usePostUserAction";
 
 export function CitiesDropDown() {
   const [citySearch, setCitySearch] = useState("");
@@ -18,6 +19,8 @@ export function CitiesDropDown() {
     if (!city) return;
     setSelectedCity({ id: city.id, code: city.cityCode, name: city.cityName });
   };
+
+  usePostUserAction();
 
   return (
     <div>
