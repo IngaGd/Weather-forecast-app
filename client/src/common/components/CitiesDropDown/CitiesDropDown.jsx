@@ -8,7 +8,7 @@ import { useLocalStorage } from "../../hooks/useLocalStorage";
 export function CitiesDropDown() {
   const [citySearch, setCitySearch] = useState("");
   const { selectedCity, setSelectedCity } = useContext(GlobalContext);
-  const { addCity } = useLocalStorage();
+  const { addCity, sortedCities } = useLocalStorage();
   const letter = citySearch[0];
   const { cities } = useGetDataFetch({ letter });
 
@@ -33,6 +33,13 @@ export function CitiesDropDown() {
         selectedCity={selectedCity}
       />
       cityName: {selectedCity.name}
+      <div>
+        {sortedCities?.map((city) => (
+          <div key={city.id} onClick={() => handleClick(city)}>
+            {city.name}
+          </div>
+        ))}
+      </div>
       <div>
         {filteredCities?.map((city) => (
           <div

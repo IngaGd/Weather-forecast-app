@@ -31,5 +31,10 @@ export function useLocalStorage() {
       ]);
     }
   };
-  return { viewedCities, addCity };
+
+  const sortedCities = viewedCities
+    ?.sort((a, b) => b.views - a.views)
+    .slice(0, 3);
+
+  return { sortedCities, addCity };
 }
