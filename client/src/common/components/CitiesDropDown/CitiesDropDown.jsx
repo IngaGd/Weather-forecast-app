@@ -19,14 +19,8 @@ export function CitiesDropDown() {
     city.cityName.slice(1).startsWith(citySearch.slice(1))
   );
 
-  // const handelSelection = () => {
-  //   console.log("Dropdown should now be visible!");
-  //   setCitySuggestion(true);
-  // };
-
   useEffect(() => {
     if (citySearch.length > 0) {
-      // setCitySuggestion(false);
       setIsDropdownVisible(true);
     } else {
       setIsDropdownVisible(false);
@@ -41,7 +35,7 @@ export function CitiesDropDown() {
     setIsDropdownVisible(false);
   };
 
-  usePostUserAction();
+  //usePostUserAction();
 
   return (
     <div>

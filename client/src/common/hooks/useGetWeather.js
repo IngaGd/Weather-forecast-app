@@ -8,10 +8,9 @@ export function useGetWeather() {
   const [weather, setWeather] = useState([]);
 
   useEffect(() => {
-    if (!selectedCity) {
+    if (!selectedCity || !selectedCity.code) {
       return;
     }
-
     const getData = async () => {
       try {
         const response = await fetch(
@@ -27,7 +26,7 @@ export function useGetWeather() {
         if (!data.forecastTimestamps) throw new Error("Invalid data");
         const formattedData = data.forecastTimestamps?.map((entry) => ({
           // id: 1,
-          time: entry.forecastTimeUtc,
+          time: new Date(entry.forecastTimeUtc).getTime(),
           temperature: entry.airTemperature,
           feelsLike: entry.feelsLikeTemperature,
           windSpeed: entry.windSpeed,

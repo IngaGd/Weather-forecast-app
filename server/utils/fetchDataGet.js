@@ -9,7 +9,6 @@ const fetchDataGet = async (url) => {
     if (!response.ok)
       throw new Error(`API response status: ${response.status}`);
     const data = await response.json();
-    console.log("weather data: ", data);
     weather = data;
     fetchDataGetError = null;
   } catch (error) {

@@ -4,7 +4,7 @@ exports.getForecast = async (req, res) => {
   const placeCode = req.query.placeCode;
   if (!placeCode) return res.json([]);
 
-  fetchDataGet(
+  await fetchDataGet(
     `https://api.meteo.lt/v1/places/${placeCode}/forecasts/long-term`
   );
 

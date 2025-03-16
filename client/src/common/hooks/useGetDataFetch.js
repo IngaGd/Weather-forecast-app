@@ -11,7 +11,6 @@ export function useGetDataFetch({ letter }) {
       try {
         const response = await fetch(`${url}places?letter=${letter}`, {
           method: "GET",
-          //   headers: { "Content-Type": "application/json" },
         });
         if (!response.ok) {
           throw new Error("Data failed to fetch");
