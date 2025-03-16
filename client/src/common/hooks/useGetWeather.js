@@ -11,7 +11,10 @@ export function useGetWeather() {
     if (!selectedCity || !selectedCity.code) {
       return;
     }
+
     const getData = async () => {
+      console.log("Triggered getweather");
+
       try {
         const response = await fetch(
           `${url}forecast?placeCode=${selectedCity.code}`,
@@ -24,15 +27,17 @@ export function useGetWeather() {
         }
         const data = await response.json();
         if (!data.forecastTimestamps) throw new Error("Invalid data");
-        const formattedData = data.forecastTimestamps?.map((entry) => ({
-          // id: 1,
-          time: new Date(entry.forecastTimeUtc).getTime(),
-          temperature: entry.airTemperature,
-          feelsLike: entry.feelsLikeTemperature,
-          windSpeed: entry.windSpeed,
-          windDirection: entry.windDirection,
-          condition: entry.conditionCode,
-        }));
+        const formattedData = data.forecastTimestamps
+          ?.slice(0, -24)
+          .map((entry) => ({
+            // id: 1,
+            time: new Date(entry.forecastTimeUtc).getTime(),
+            temperature: entry.airTemperature,
+            feelsLike: entry.feelsLikeTemperature,
+            windSpeed: entry.windSpeed,
+            windDirection: entry.windDirection,
+            condition: entry.conditionCode,
+          }));
         setWeather(formattedData);
       } catch (error) {
         console.log("Error: ", error || error.message);
