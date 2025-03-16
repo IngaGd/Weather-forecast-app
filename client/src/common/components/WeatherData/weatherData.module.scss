@@ -1,0 +1,67 @@
+@use "../../../styles/variables/index" as *;
+
+.container {
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  width: inherit;
+
+  grid-template-rows: repeat(3, min-content);
+
+  .currentWeather {
+    grid-row: 1;
+
+    display: grid;
+    grid-template-rows: repeat(2, min-content);
+    background-color: $color-primary-2;
+    padding-bottom: 2rem;
+
+    .heading {
+      grid-row: 1;
+    }
+
+    .condition {
+      display: grid;
+      grid-template-rows: 1fr 1fr;
+      grid-template-columns: 1fr 1fr;
+      div {
+        justify-self: center;
+      }
+    }
+  }
+
+  .heading {
+    grid-row: 2;
+  }
+
+  .forecast {
+    grid-row: 3;
+
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    div {
+      background-color: $color-primary-2;
+      border-radius: 3px;
+    }
+
+    @media screen and (max-width: 1050px) {
+      grid-template-columns: 1fr;
+      grid-template-rows: repeat(4, 1fr);
+    }
+  }
+}
+
+.heading {
+  justify-self: center;
+  font-size: $font-size-xl;
+
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.loading {
+  display: flex;
+  justify-self: center;
+}

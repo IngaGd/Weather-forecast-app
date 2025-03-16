@@ -1,5 +1,10 @@
 @use "../variables/index" as *;
 
+#root {
+  display: block;
+  width: 100%;
+}
+
 *,
 *::before,
 *::after {
@@ -7,6 +12,7 @@
   padding: 0;
   box-sizing: inherit;
   scroll-behavior: smooth;
+  box-sizing: inherit;
 }
 
 html {
@@ -21,4 +27,6 @@ body {
   color: $color-primary-1;
   background-color: $color-primary-3;
   line-height: 1.5;
+  margin: 0;
+  padding: 0;
 }

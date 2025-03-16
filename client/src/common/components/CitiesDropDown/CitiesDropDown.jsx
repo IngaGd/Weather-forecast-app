@@ -43,41 +43,46 @@ export function CitiesDropDown() {
   };
 
   return (
-    <div>
-      <Input
-        citySearch={citySearch}
-        setCitySearch={setCitySearch}
-        selectedCity={selectedCity}
-        // onFocus={handelSelection}
-      />
-      cityName: {selectedCity.name}
+    <div className={styles.input}>
       <div>
-        Select from mostly viewed:
-        {sortedCities?.map((city) => (
-          <div
-            key={city.id}
-            onClick={() => handleSortedCityClick(city)}
-            // className={styles.city}
-          >
-            {city.name}
-          </div>
-        ))}
+        <Input
+          citySearch={citySearch}
+          setCitySearch={setCitySearch}
+          selectedCity={selectedCity}
+          placeHolder={selectedCity.name}
+        />
+        <div> Entered city name: {selectedCity.name}</div>
+        <div
+          className={`${styles.dropDown} ${
+            isDropdownVisible ? "" : styles.hidden
+          }`}
+        >
+          {filteredCities?.map((city) => (
+            <div
+              key={city.id}
+              onClick={() => handleClick(city)}
+              className={styles.city}
+            >
+              {city.cityName}
+              {isDropdownVisible}
+            </div>
+          ))}
+        </div>
       </div>
-      <div
-        className={`${styles.dropDown} ${
-          isDropdownVisible ? "" : styles.hidden
-        }`}
-      >
-        {filteredCities?.map((city) => (
-          <div
-            key={city.id}
-            onClick={() => handleClick(city)}
-            className={styles.city}
-          >
-            {city.cityName}
-            {isDropdownVisible}
-          </div>
-        ))}
+      <div className={styles.sortedCity}>
+        <div>Select from mostly viewed:</div>
+        <div className={styles.list}>
+          {" "}
+          {sortedCities?.map((city) => (
+            <div
+              key={city.id}
+              onClick={() => handleSortedCityClick(city)}
+              className={styles.city}
+            >
+              {city.name}
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
