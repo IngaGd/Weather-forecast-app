@@ -1,39 +1,28 @@
-import { useContext, useEffect } from "react";
-import { GlobalContext } from "../context/GlobalContext";
-
 const url = import.meta.env.VITE_URL;
 
 export function usePostUserAction() {
-  const { selectedCity } = useContext(GlobalContext);
+  const postData = async (cityCode) => {
+    if (!cityCode) return;
 
-  useEffect(() => {
-    if (!selectedCity) {
-      return;
+    console.log("Posting user action for:", cityCode);
+
+    try {
+      const response = await fetch(`${url}logs`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ cityCode }),
+      });
+
+      if (!response.ok) throw new Error("Failed to send data log");
+
+      const result = await response.json();
+      console.log("Posted log result:", result);
+    } catch (error) {
+      console.error("Error posting user action:", error);
     }
-    const postData = async () => {
-      try {
-        const response = await fetch(`${url}logs`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            cityCode: selectedCity.code,
-            cityName: selectedCity.name,
-          }),
-        });
+  };
 
-        if (!response.ok) throw new Error("Failed to send data log");
-
-        if (response.ok) {
-          const result = await response.json();
-          console.log("result", result);
-        }
-      } catch (error) {
-        console.error("Error: ", error);
-      }
-    };
-
-    postData();
-  }, [selectedCity]);
+  return { postData };
 }

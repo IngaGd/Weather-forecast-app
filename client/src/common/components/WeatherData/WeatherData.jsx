@@ -1,44 +1,22 @@
 import { useGetWeather } from "../../hooks/useGetWeather";
 import { LineChart } from "@mui/x-charts/LineChart";
+import { usePostUserAction } from "../../hooks/usePostUserAction";
+import { useContext, useEffect } from "react";
+import { GlobalContext } from "../../context/GlobalContext";
 
 export function WeatherData() {
+  const { cityCode } = useContext(GlobalContext);
   const { weather } = useGetWeather();
+  const { postData } = usePostUserAction();
   // if (!weather || weather.length === 0) {
   //   return <div>Loading weather data...</div>;
   // }
 
-  const mokData = [
-    {
-      time: new Date("2025-03-16 08:00:00").getTime(),
-      weather: {
-        temperature: 2.5,
-        feelsLike: -2.7,
-        windSpeed: 7,
-        windDirection: 261,
-        condition: "cloudy",
-      },
-    },
-    {
-      time: new Date("2025-03-17 09:00:00").getTime(),
-      weather: {
-        temperature: 3.5,
-        feelsLike: -2.7,
-        windSpeed: 7,
-        windDirection: 261,
-        condition: "cloudy",
-      },
-    },
-    {
-      time: new Date("2025-03-18 10:00:00").getTime(),
-      weather: {
-        temperature: 4.5,
-        feelsLike: -2.7,
-        windSpeed: 7,
-        windDirection: 261,
-        condition: "cloudy",
-      },
-    },
-  ];
+  useEffect(() => {
+    if (weather.length !== 0) {
+      postData(cityCode);
+    }
+  }, [weather]);
 
   const mapTime = weather.map((wetherOption) => wetherOption.time);
   const mapTemperature = weather.map(

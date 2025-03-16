@@ -8,12 +8,12 @@ import styles from "./citesDropDown.module.scss";
 
 export function CitiesDropDown() {
   const [citySearch, setCitySearch] = useState("");
-  const { selectedCity, setSelectedCity } = useContext(GlobalContext);
+  const { selectedCity, setSelectedCity, setCityCode } =
+    useContext(GlobalContext);
   const { addCity, sortedCities } = useLocalStorage();
   const letter = citySearch[0];
   const { cities } = useGetDataFetch({ letter });
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
-  //const [ciySuggestion, setCitySuggestion] = useState(false);
 
   const filteredCities = cities.filter((city) =>
     city.cityName.slice(1).startsWith(citySearch.slice(1))
@@ -33,9 +33,14 @@ export function CitiesDropDown() {
     setSelectedCity({ id: city.id, code: city.cityCode, name: city.cityName });
     addCity({ id: city.id, code: city.cityCode, name: city.cityName });
     setIsDropdownVisible(false);
+    setCityCode(city.cityCode);
   };
 
-  //usePostUserAction();
+  const handleSortedCityClick = (city) => {
+    console.log("Clicked sorted city:", city);
+    setSelectedCity({ id: city.id, code: city.code, name: city.name });
+    setCityCode(city.code);
+  };
 
   return (
     <div>
@@ -51,7 +56,7 @@ export function CitiesDropDown() {
         {sortedCities?.map((city) => (
           <div
             key={city.id}
-            onClick={() => handleClick(city)}
+            onClick={() => handleSortedCityClick(city)}
             // className={styles.city}
           >
             {city.name}
