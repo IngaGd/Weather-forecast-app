@@ -7,6 +7,8 @@ export function Input({ citySearch, setCitySearch }) {
         id="citySearch"
         value={citySearch}
         onChange={(e) => setCitySearch(e.target.value)}
+        // onFocus={onFocus}
+        autoComplete="off"
       />
     </div>
   );

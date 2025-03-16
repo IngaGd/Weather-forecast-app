@@ -1,0 +1,17 @@
+.dropDown {
+  height: 30rem;
+  overflow-y: scroll;
+  transition: all 0.3s;
+  &.hidden {
+    height: 0rem;
+  }
+}
+.city {
+  background-color: red;
+  border: 1px solid white;
+  padding: 0.5rem;
+  margin-bottom: 2px;
+  &:hover {
+    background-color: blue;
+  }
+}
